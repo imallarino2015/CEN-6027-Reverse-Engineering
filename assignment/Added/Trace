@@ -1,0 +1,25 @@
+The program starts off with t initialized to 1. The other values are random, but they don't matter. With t as 1, the first recursive call is made as main(2,2,str3) setting up the t and the _ as 2 and using the current string value. With t now as 2, the next functions that are called are main(-79,-13,a+main(-87,1-_,main(-86,0,a+1)+a)) from the innermost main to the outermost. Since all t values for these functions are less than -72, the next function each of them will be calling will be main(param2,param1,cypherString), which will swap their t and _ values. The first swapped call will be main(0,-86,strPtr+1). Since t is now 0, this will invoke the innermost call of the next set of functions main(0,main(-61,*a,referenceString),a+1). This will set t as -61, and set it up with the character in its third parameter as a _ value and the reference string to compare and convert the character in to the correct format. It will then continuously call main(-65,_,a+1) until a matches _. Once a match is found it calls putchar(a[31]) which just outputs the character 31 units to the right to the console. It will continue to do this until it has converted all characters up to the next '/' in the string. It then works its way back to the outer functions until it reaches main(-79,-13,a+main(-87,1-_,main(-86,0,a+1)+a)) again. It adds each string to the last using the _ value as an index for the block of characters indicated by the '/' until it ends up with "On the nth day of Christmas my true love gave to me". If the t value is less than the _ value, it then works on the main(t+1,_,a) function. This function will work from the top continuously calling itself after the previous function calls have been made, if applicable and work backwards once t and _ are equal. The next function call is made in an if statement. main(-94,-27+_,a)!=0 is called which then invokes main(_,t,a), flipping the t and _ values. With t now being -27, this causes the program to invoke main((*a=='/')+t,_,a+1), which repeatedly calls itself, incrementing the a value pointing at the string and incrementing the t value whenever it comes across a '/' separating character until t==0. Once t==0, it will then call the nested function main(0,main(-61,*a,referenceString),a+1). This will have the same behavior as previously mentioned, returning either a 0 or non-0 value which the computer then checks. If it is not 0, the computer short-circuits and the program returns an error. Otherwise it also checks if the t value is 2. If so, the program checks if the 12 iteration limit has been reached. If so, the program returns with a success, otherwise the program invokes main(2,_+1,a). This will start the program over again with an increased _ value to increase the number until the value returns a success.
+
+Recursive trace:
+main(t=1,_,a)
+ main(2,2,"%s")
+  main(-86,0,"%s")
+   main(0,-86,cypherString)
+    main(-61,cypherString[0],referenceString)
+     main(-65,cypherString[0],referenceString[i++])
+     // The above recursion function call is repeated until cypherString[0] == referenceString[i]
+      putchar(referenceString[i+31])
+    main(0,referenceString[i++],a+1)
+    // The above recursion function call is repeated until the next '/' character is encountered
+  main(-87,-1,"On the "+"") // This call is the same as the former but it is used to find the day string
+  main(-79,-13,""+"On the nth") // This calls out the last part of the first line
+  main(3,2,"")
+  // This call is repeated until t == _
+  main(-94,-25,"")
+   main(-25,-94,cypherString)
+    main(-65,-94,cypherString[i++])
+    // The above recursion function call is repeated until cypherString[0] == referenceString[i]
+     putchar(referenceString[i+31])
+  main(2,3,"%s %d %d\n")
+   // Repeats the above recursive call until _ is 13
+   // If _ reaches 13, it returns a success, otherwise it fails
